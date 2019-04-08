@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'poll/style.css' %}">
+<body style="background-color: black">
+  <div class="container">
+    <img src="{% static 'poll/logo.png' %}" alt="logo" style="max-width: 45%">
+
+    <br><br><br>
+    <div class="col-xs-12" style="background-color: black">
+      <h1>LAST WEEK THE INFAMOUS "16 PERSONALITIES" TEST WAS PASSED AROUND THE OFFICE. IF YOU HAVEN'T TAKEN IT YET, YOU MAY DO SO AT<a href="www.16personalities.com" style="color: #FF4729"> THIS LINK</a>.</h1><br>
+      <h1>NOW WE'RE TAKING AN ANONYMOUS POLL TO HAVE SOME FUN WITH DATA VISUALIZATION!</h1>
+    </div>
+
+      <form action="{% url 'poll:vote' %}" method="post">
+      {%csrf_token%}
+      {% for question in question_list%}
+      <br><h2>QUESTION # {{forloop.counter}}</h2>
+      <h2>{{question.question_text|upper}}</h2>
+      <div class="row">
+        <div class = "form-check" >
+
+          <div class="col-xs-6" style="display: inline-block">
+            <ul>
+            {% for choice in question.choice_set.all %}
+                {%if question.choice_set.count <= 5 %}
+                  <input type="radio" class= "form-check-input" name= "{{question.question_text}}" id="{{forloop.parentloop.counter}}{{choice.choice_text}}", value = "{{choice.id}}">
+                  <label  class= "form-check-label" for="{{forloop.parentloop.counter}}{{choice.choice_text}}">{{choice.choice_text}}</label><br>
+                {% elif forloop.counter|divisibleby:2 is not True%}
+
+                    <input type="radio" class= "form-check-input" name= "{{question.question_text}}" id="{{forloop.parentloop.counter}}{{choice.choice_text}}", value = "{{choice.id}}">
+                    <label  class= "form-check-label" for="{{forloop.parentloop.counter}}{{choice.choice_text}}">{{choice.choice_text}}</label><br>
+
+                {%endif%}
+            {%endfor%}
+          </ul>
+        </div>
+          <div class="col-xs-6" style="display: inline-block">
+            <ul>
+            {% for choice in question.choice_set.all %}
+                {% if forloop.counter|divisibleby:2  and question.choice_set.count > 5%}
+
+                    <input type="radio" class= "form-check-input" name= "{{question.question_text}}" id="{{forloop.parentloop.counter}}{{choice.choice_text}}", value = "{{choice.id}}">
+                    <label  class= "form-check-label" for="{{forloop.parentloop.counter}}{{choice.choice_text}}">{{choice.choice_text}}</label><br>
+
+                {%endif%}
+            {%endfor%}
+          </ul></div>
+
+        </div>
+      </div>
+
+      {%endfor%}
+
+        <div class="text-center">
+          <button type="submit" class="btn submit-btn">SUBMIT</button>
+        </div>
+      </form>
+  </div>
+  <br><br><br>
+
+</body>

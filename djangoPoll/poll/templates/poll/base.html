@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% include 'poll/js.html' %}
+    <script>
+      $(document).ready(function(){
+        {% block jquery %}{% endblock %}
+      })
+    </script>
+  </body>
+</html>

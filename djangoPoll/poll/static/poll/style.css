@@ -1,0 +1,39 @@
+@font-face {
+  font-family: condensed-regular;
+  src: url("fonts/AkzidGrtskProCndReg-webfont.woff");
+}
+
+@font-face {
+  font-family: condensed-light;
+  src: url("fonts/AkzidGrtskProLigCnd.woff");
+}
+
+h1 {
+  color: white;
+  font-family: condensed-regular;
+  font-size: 1.25rem;
+}
+
+h2,label {
+  color: white;
+  font-family: condensed-light;
+  font-size: 1.25rem;
+}
+
+.submit-btn{
+  background-color: #FF4729;
+  font-family: condensed-regular;
+  color: white;
+  width: 33%;
+  max-width: 200px;
+  height: auto;
+  font-size: 1.25rem;
+}
+
+input{
+  visibility: hidden;
+}
+
+input:checked + label{
+  background-color: #FF4729;
+}

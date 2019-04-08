@@ -1,0 +1,139 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+<div class="container">
+  <canvas id="myChart"></canvas>
+  <canvas id="myChart2" width="300" height="300"></canvas>
+</div>
+
+<script>
+  {% autoescape off %}
+  var per = {{personalities}}
+  var months = {{months}}
+  {% endautoescape %}
+  var label1 = Object.keys(per)
+  var data1 = Object.values(per)
+
+  var archLab = Object.keys(months)
+  var dataSet = Object.values(months)
+  let ctx = document.getElementById('myChart').getContext('2d');
+  let ctx2 = document.getElementById('myChart2').getContext('2d');
+
+  let newChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: label1,
+      datasets:[{
+                data: data1,
+                backgroundColor: ["#e8d8e0", "#e8d8e0", "#e8d8e0", "#e8d8e0",
+                                  "#dbeee6", "#dbeee6", "#dbeee6", "#dbeee6",
+                                  "#cde6e7", "#cde6e7", "#cde6e7", "#cde6e7",
+                                  "#f7e7cb", "#f7e7cb", "#f7e7cb", "#f7e7cb",
+                                  ]
+                }]
+    },
+    options:{},
+
+  })
+
+  var monthArchData = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    datasets: [
+      {
+        label: archLab[0],
+        backgroundColor: "#e8d8e0",
+        data: dataSet[0],
+
+      },
+      {
+        label: archLab[1],
+        backgroundColor: "#e8d8e0",
+        data: dataSet[1],
+
+      },
+      {
+        label: archLab[2],
+        backgroundColor: "#e8d8e0",
+        data: dataSet[2],
+
+      },
+      {
+        label: archLab[3],
+        backgroundColor: "#e8d8e0",
+        data: dataSet[3],
+      },
+      {
+        label: archLab[4],
+        backgroundColor: "#dbeee6",
+        data: dataSet[4],
+      },
+      {
+        label: archLab[5],
+        backgroundColor: "#dbeee6",
+        data: dataSet[5],
+      },
+      {
+        label: archLab[6],
+        backgroundColor: "#dbeee6",
+        data: dataSet[6],
+      },
+      {
+        label: archLab[7],
+        backgroundColor: "#dbeee6",
+        data: dataSet[7],
+      },
+      {
+        label: archLab[8],
+        backgroundColor: "#cde6e7",
+        data: dataSet[8],
+
+      },
+      {
+        label: archLab[9],
+        backgroundColor: "#cde6e7",
+        data: dataSet[9],
+      },
+      {
+        label: archLab[10],
+        backgroundColor: "#cde6e7",
+        data: dataSet[10],
+      },
+      {
+        label: archLab[11],
+        backgroundColor: "#cde6e7",
+        data: dataSet[11],
+      },
+      {
+        label: archLab[12],
+        backgroundColor: "#f7e7cb",
+        data: dataSet[12],
+
+      },
+      {
+        label: archLab[13],
+        backgroundColor: "#f7e7cb",
+        data: dataSet[13],
+      },
+      {
+        label: archLab[14],
+        backgroundColor: "#f7e7cb",
+        data: dataSet[14],
+      },
+      {
+        label: archLab[15],
+        backgroundColor: "#f7e7cb",
+        data: dataSet[15],
+      }
+    ],
+  }
+
+  let stacked = new Chart(ctx2, {
+    type: 'bar',
+    data: monthArchData,
+    options: {
+      scales:{
+        xAxes: [{stacked: true}],
+        yAxes: [{stacked: true}]
+      }
+    }
+  })
+</script>
