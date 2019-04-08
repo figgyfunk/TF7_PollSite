@@ -1,139 +1,318 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 
-<div class="container">
-  <canvas id="myChart"></canvas>
-  <canvas id="myChart2" width="300" height="300"></canvas>
-</div>
+    {% load static %}
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'poll/style.css' %}">
+    <meta charset="utf-8">
+    <title>TF7 Poll</title>
+  </head>
+  <body style="background-color: black">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+          <img src="{% static 'poll/logo.png' %}" alt="logo" style="max-width: 100%">
+        </div>
+      </div>
+      <br>
+      <div class="row">
 
-<script>
-  {% autoescape off %}
-  var per = {{personalities}}
-  var months = {{months}}
-  {% endautoescape %}
-  var label1 = Object.keys(per)
-  var data1 = Object.values(per)
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+      <br><br><br><br>
+      <div class="row">
+        <div class=" col-md-6 col-lg-6">
+          <canvas id="myChart2" ></canvas>
+        </div>
+        <div class="col-md-6 col-lg-6">
+          <canvas id="myChart3"></canvas>
+        </div>
 
-  var archLab = Object.keys(months)
-  var dataSet = Object.values(months)
-  let ctx = document.getElementById('myChart').getContext('2d');
-  let ctx2 = document.getElementById('myChart2').getContext('2d');
+      </div>
 
-  let newChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: label1,
-      datasets:[{
-                data: data1,
-                backgroundColor: ["#e8d8e0", "#e8d8e0", "#e8d8e0", "#e8d8e0",
-                                  "#dbeee6", "#dbeee6", "#dbeee6", "#dbeee6",
-                                  "#cde6e7", "#cde6e7", "#cde6e7", "#cde6e7",
-                                  "#f7e7cb", "#f7e7cb", "#f7e7cb", "#f7e7cb",
-                                  ]
-                }]
-    },
-    options:{},
+    </div>
 
-  })
+    <script>
+      {% autoescape off %}
+      var per = {{personalities}}
+      var months = {{months}}
+      var departs = {{departs}}
+      {% endautoescape %}
+      var label1 = Object.keys(per)
+      var data1 = Object.values(per)
 
-  var monthArchData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    datasets: [
-      {
-        label: archLab[0],
-        backgroundColor: "#e8d8e0",
-        data: dataSet[0],
+      var archLab = Object.keys(months)
+      var dataSet = Object.values(months)
 
-      },
-      {
-        label: archLab[1],
-        backgroundColor: "#e8d8e0",
-        data: dataSet[1],
+      var departData = Object.values(departs)
+      let ctx = document.getElementById('myChart').getContext('2d');
+      let ctx2 = document.getElementById('myChart2').getContext('2d');
+      let ctx3 = document.getElementById('myChart3').getContext('2d');
 
-      },
-      {
-        label: archLab[2],
-        backgroundColor: "#e8d8e0",
-        data: dataSet[2],
+      let newChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: label1,
+          datasets:[{
+                    data: data1,
+                    backgroundColor: ["#e8d8e0", "#e8d8e0", "#e8d8e0", "#e8d8e0",
+                                      "#dbeee6", "#dbeee6", "#dbeee6", "#dbeee6",
+                                      "#cde6e7", "#cde6e7", "#cde6e7", "#cde6e7",
+                                      "#f7e7cb", "#f7e7cb", "#f7e7cb", "#f7e7cb",
+                                      ]
+                    }]
+        },
+        options:{
+          legend:{
+            labels: {
+              fontFamily: 'condensed light',
+              fontColor: 'white',
+              fontSize: 12
+            }
 
-      },
-      {
-        label: archLab[3],
-        backgroundColor: "#e8d8e0",
-        data: dataSet[3],
-      },
-      {
-        label: archLab[4],
-        backgroundColor: "#dbeee6",
-        data: dataSet[4],
-      },
-      {
-        label: archLab[5],
-        backgroundColor: "#dbeee6",
-        data: dataSet[5],
-      },
-      {
-        label: archLab[6],
-        backgroundColor: "#dbeee6",
-        data: dataSet[6],
-      },
-      {
-        label: archLab[7],
-        backgroundColor: "#dbeee6",
-        data: dataSet[7],
-      },
-      {
-        label: archLab[8],
-        backgroundColor: "#cde6e7",
-        data: dataSet[8],
+          }
+        },
 
-      },
-      {
-        label: archLab[9],
-        backgroundColor: "#cde6e7",
-        data: dataSet[9],
-      },
-      {
-        label: archLab[10],
-        backgroundColor: "#cde6e7",
-        data: dataSet[10],
-      },
-      {
-        label: archLab[11],
-        backgroundColor: "#cde6e7",
-        data: dataSet[11],
-      },
-      {
-        label: archLab[12],
-        backgroundColor: "#f7e7cb",
-        data: dataSet[12],
+      })
 
-      },
-      {
-        label: archLab[13],
-        backgroundColor: "#f7e7cb",
-        data: dataSet[13],
-      },
-      {
-        label: archLab[14],
-        backgroundColor: "#f7e7cb",
-        data: dataSet[14],
-      },
-      {
-        label: archLab[15],
-        backgroundColor: "#f7e7cb",
-        data: dataSet[15],
+      var departArchData = {
+        labels: ['Marketing', 'Account', 'Executive', 'Design', 'Production' ],
+        datasets: [
+          {
+            label: archLab[0],
+            backgroundColor: '#e8d8e0',
+            data: departData[0]
+          },
+          {
+            label: archLab[1],
+            backgroundColor: '#e8d8e0',
+            data: departData[1]
+          },
+          {
+            label: archLab[2],
+            backgroundColor: '#e8d8e0',
+            data: departData[2]
+          },
+          {
+            label: archLab[3],
+            backgroundColor: '#e8d8e0',
+            data: departData[3]
+          },
+          {
+            label: archLab[4],
+            backgroundColor: '#dbeee6',
+            data: departData[4]
+          },
+          {
+            label: archLab[5],
+            backgroundColor: '#dbeee6',
+            data: departData[5]
+          },
+          {
+            label: archLab[6],
+            backgroundColor: '#dbeee6',
+            data: departData[6]
+          },
+          {
+            label: archLab[7],
+            backgroundColor: '#dbeee6',
+            data: departData[7]
+          },
+          {
+            label: archLab[8],
+            backgroundColor: '#cde6e7',
+            data: departData[8]
+          },
+          {
+            label: archLab[9],
+            backgroundColor: '#cde6e7',
+            data: departData[9]
+          },
+          {
+            label: archLab[10],
+            backgroundColor: '#cde6e7',
+            data: departData[10]
+          },
+          {
+            label: archLab[11],
+            backgroundColor: '#cde6e7',
+            data: departData[11]
+          },
+          {
+            label: archLab[12],
+            backgroundColor: '#f7e7cb',
+            data: departData[12]
+          },
+          {
+            label: archLab[13],
+            backgroundColor: '#f7e7cb',
+            data: departData[13]
+          },
+          {
+            label: archLab[14],
+            backgroundColor: '#f7e7cb',
+            data: departData[14]
+          },
+          {
+            label: archLab[15],
+            backgroundColor: '#f7e7cb',
+            data: departData[15]
+          }
+
+        ]
       }
-    ],
-  }
+      var monthArchData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        datasets: [
+          {
+            label: archLab[0],
+            backgroundColor: "#e8d8e0",
+            data: dataSet[0],
 
-  let stacked = new Chart(ctx2, {
-    type: 'bar',
-    data: monthArchData,
-    options: {
-      scales:{
-        xAxes: [{stacked: true}],
-        yAxes: [{stacked: true}]
+          },
+          {
+            label: archLab[1],
+            backgroundColor: "#e8d8e0",
+            data: dataSet[1],
+
+          },
+          {
+            label: archLab[2],
+            backgroundColor: "#e8d8e0",
+            data: dataSet[2],
+
+          },
+          {
+            label: archLab[3],
+            backgroundColor: "#e8d8e0",
+            data: dataSet[3],
+          },
+          {
+            label: archLab[4],
+            backgroundColor: "#dbeee6",
+            data: dataSet[4],
+          },
+          {
+            label: archLab[5],
+            backgroundColor: "#dbeee6",
+            data: dataSet[5],
+          },
+          {
+            label: archLab[6],
+            backgroundColor: "#dbeee6",
+            data: dataSet[6],
+          },
+          {
+            label: archLab[7],
+            backgroundColor: "#dbeee6",
+            data: dataSet[7],
+          },
+          {
+            label: archLab[8],
+            backgroundColor: "#cde6e7",
+            data: dataSet[8],
+
+          },
+          {
+            label: archLab[9],
+            backgroundColor: "#cde6e7",
+            data: dataSet[9],
+          },
+          {
+            label: archLab[10],
+            backgroundColor: "#cde6e7",
+            data: dataSet[10],
+          },
+          {
+            label: archLab[11],
+            backgroundColor: "#cde6e7",
+            data: dataSet[11],
+          },
+          {
+            label: archLab[12],
+            backgroundColor: "#f7e7cb",
+            data: dataSet[12],
+
+          },
+          {
+            label: archLab[13],
+            backgroundColor: "#f7e7cb",
+            data: dataSet[13],
+          },
+          {
+            label: archLab[14],
+            backgroundColor: "#f7e7cb",
+            data: dataSet[14],
+          },
+          {
+            label: archLab[15],
+            backgroundColor: "#f7e7cb",
+            data: dataSet[15],
+          }
+        ],
       }
-    }
-  })
-</script>
+
+      let departChart = new Chart(ctx3, {
+        type: 'bar',
+        data: departArchData,
+        options: {
+          legend: {
+            display: false,
+            labels: {
+              fontFamily: 'condensed-light',
+              fontColor: 'white'
+            }
+
+          },
+          scales:{
+            xAxes: [{stacked: true, ticks:{
+              fontSize: 14,
+              fontColor: 'white',
+              fontFamily: 'condensed-light'
+            }}],
+            yAxes: [{stacked: true,
+              ticks:{
+                fontSize: 14,
+                fontColor: 'white',
+                fontFamily: 'condensed-light'
+              }}]
+          }
+        }
+      })
+      let stacked = new Chart(ctx2, {
+        type: 'bar',
+        data: monthArchData,
+        options: {
+          legend: {
+            display: false,
+            labels: {
+              fontFamily: 'condensed-light',
+              fontColor: 'white'
+            }
+
+          },
+          scales:{
+            xAxes: [{stacked: true
+            , ticks:{
+              fontSize: 14,
+              fontColor: 'white',
+              fontFamily: 'condensed-light'
+            }}],
+            yAxes: [{stacked: true,ticks:{
+              fontSize: 14,
+              fontColor: 'white',
+              fontFamily: 'condensed-light'
+            }}]
+          }
+        }
+      })
+    </script>
+    <br><br><br>
+  </body>
+
+</html>

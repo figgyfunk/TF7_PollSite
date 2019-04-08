@@ -77,17 +77,20 @@ def results(request):
     personalities = {}
     question = Question.objects.get(pk=1)
     for choice in question.choice_set.all():
-        personalities[choice.choice_text] = choice.votes
+        personalities[choice.choice_text.upper()] = choice.votes
     json.dumps(personalities)
 
     months = {}
+    departs = {}
     for arch in Arch.objects.all():
-        months[arch.name] = [arch.jan, arch.feb, arch.mar, arch.apr, arch.may, arch.jun, arch.jul, arch.aug, arch.sep, arch.oct, arch.nov, arch.dec]
-
+        name = arch.name.upper()
+        months[name] = [arch.jan, arch.feb, arch.mar, arch.apr, arch.may, arch.jun, arch.jul, arch.aug, arch.sep, arch.oct, arch.nov, arch.dec]
+        departs[name] = [arch.mark, arch.acc, arch.exec, arch.des, arch.pro]
     json.dumps(months)
-
+    json.dumps(departs)
     context = {
         'personalities' : personalities,
         'months' : months,
+        'departs' : departs
     }
     return render(request, 'poll/results.html', context)

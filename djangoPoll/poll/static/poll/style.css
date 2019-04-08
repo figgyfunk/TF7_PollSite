@@ -8,18 +8,21 @@
   src: url("fonts/AkzidGrtskProLigCnd.woff");
 }
 
+
 h1 {
   color: white;
   font-family: condensed-regular;
-  font-size: 1.25rem;
 }
 
-h2,label {
+h2{
   color: white;
   font-family: condensed-light;
-  font-size: 1.25rem;
 }
 
+.form-check-label{
+  color: white;
+  font-family: condensed-light;
+}
 .submit-btn{
   background-color: #FF4729;
   font-family: condensed-regular;
@@ -27,7 +30,6 @@ h2,label {
   width: 33%;
   max-width: 200px;
   height: auto;
-  font-size: 1.25rem;
 }
 
 input{
